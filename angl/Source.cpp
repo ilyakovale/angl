@@ -14,12 +14,25 @@ int main() {
 	{
 		word current;
 		current.word_angl = word_angl;
-		current.word_rus = word_rus;
 
+		vector <string> words_rus;//Добавление английского слова
+		int i = 0;
+		int k = 0;
+		//Веделение всех русских слов
+		while (word_rus[i] != '0') {
+			if (word_rus[i] == ',') {
+				words_rus.push_back(word_rus.substr(k, i - k));
+				k = i + 1;
+			}
+			i++;
+		}
+		words_rus.push_back(word_rus.substr(k, i - k));
+		//
+		current.word_rus = words_rus;//Добавление русских слов
 		words.push_back(current);
 	}
 	//
-	
+
 	int right = 0, wrong = 0;//Объявление переменных для записи количества верных и неверных ответов
 	int n = words.size(); //Количество элементов в векторе слов
 	string answer;//Объявление временной переменной для ответов
@@ -29,6 +42,7 @@ int main() {
 		//Генерация случайного индекса для вектора слов
 		srand(time(NULL));
 		int a = rand() % n;
+		//cout << words[a].word_rus[0];
 		//
 		//Вывод английского слова и запись ответа пользователя на русском
 		cout << words[a].word_angl << endl;
@@ -37,23 +51,35 @@ int main() {
 		//1Условие выхода из цикла
 		if (answer == "stop") {
 			system("cls"); //Отчистка консоли
-			cout << right << " " << wrong<<endl; //Вывод количества верных и неверных ответов
+			cout << right << " " << wrong << endl; //Вывод количества верных и неверных ответов
 			//2Вывод всех неправильно написанных слов
-			for (word &x : wrong_ans) {
-				cout << x.word_angl << " " << x.word_rus << endl;
+			for (word& wrong : wrong_ans) {
+				cout << wrong.word_angl << " "; //Вывод неправильного английского слова
+				for (string& word_rus : wrong.word_rus)
+					cout << word_rus << " "; // Вывод всех неправильных русских слов
+				cout << endl;
 			}
 			//2
 			return 0; //конец программы
 		}
 		//1
+		//Проверка на совпадение хотябы одного русского слова из списка с ответом
+		bool flag = false; 
+		for (string& word_r : words[a].word_rus) 
+			if (answer == word_r) 
+				flag = true;
+		//
 		//Подсчёт верных и неверных ответов и вывод правильного значения в случае неправильного ответа
-		if (answer == words[a].word_rus) {
+		if (flag) {
 			cout << "YES";
 			right++;
 		}
 		else {
 			wrong_ans.push_back(words[a]);
-			cout << words[a].word_rus <<endl<<"NO";
+			for (string& word_r : words[a].word_rus){
+				cout << word_r << " "; //Выыод правильного ответа в случае ввода неправильного
+			}
+			cout<<endl<<"NO";
 			wrong++;
 		}
 		//

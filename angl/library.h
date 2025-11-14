@@ -11,5 +11,6 @@ using namespace std;
 ifstream fin("words.txt");
 
 struct word {
-	string word_angl, word_rus;
+	string word_angl;
+	vector <string> word_rus;
 };
