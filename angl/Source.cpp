@@ -1,5 +1,6 @@
 #include "library.h"
 
+
 int main() {
 	//Изменение таблицы кодировки
 	SetConsoleOutputCP(1251);
