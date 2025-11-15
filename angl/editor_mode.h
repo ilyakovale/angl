@@ -1,6 +1,8 @@
+#pragma once
 #include "library.h"
 
-int main() {
+
+void editor_mode() {
 	//Изменение таблицы кодировки
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
@@ -20,8 +22,8 @@ int main() {
 	//
 	//Ввод искомого слова
 	string target;
-	cout << "Введите искомое английское слово"<<endl;
+	cout << "Введите искомое английское слово" << endl;
 	cin >> target;
 	//
-	return 0;
+	return;
 }
