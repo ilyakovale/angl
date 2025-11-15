@@ -6,6 +6,19 @@ int main() {
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 	//
+	//Выбор файла со словами
+	char choice;
+	cout << "Выберите часть речи" << endl << "1.Общее"<<endl;
+	cin >> choice;
+	string file_name;
+	switch (choice) {
+	case '1':
+		file_name = "words.txt";
+		break;
+	}
+	ifstream fin(file_name);
+	system("cls");
+	//
 	string word_angl, word_rus; //Объявление временных переменных для записи слов в вектор
 	vector <word> words; //Объявление вектора с словами
 
